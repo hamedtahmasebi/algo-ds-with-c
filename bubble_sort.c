@@ -1,7 +1,6 @@
 #include <stdio.h>
 
-
-int* bubble_sort(int* arr , int arrlen);
+void bubble_sort(int* arr , int arrlen);
 int main()
 {
   int arrlen = 5;
@@ -16,12 +15,10 @@ int main()
   return 0;
 }
 
- int* bubble_sort(int* arr , int arrlen)
+ void bubble_sort(int* arr , int arrlen)
 {
-
   int i=0;
   int j=0;
- 
   // -1 is for indexing, if not specified, it will access the next memory position which causes problems
   for (; i < arrlen - 1; i++) {
     for (; j < arrlen - 1; j++) {
@@ -33,17 +30,5 @@ int main()
         arr[j+1] = temp;
       }
     }
-  }
-
-
-
-  return 0;
-}
-
-
-int get_arr_len(int* arr) {
-  int len = 0;
-  while(arr[len] != '\0') {
-
   }
 }
