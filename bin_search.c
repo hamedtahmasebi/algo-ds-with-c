@@ -1,7 +1,4 @@
 #include <stdio.h>
-#include <stdbool.h>
-
-#define get_var_name(var) #var
 
 int bin_search(int val, int* arr,int arrlen);
 
