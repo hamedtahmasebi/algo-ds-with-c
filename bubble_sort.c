@@ -21,7 +21,9 @@ int main()
   int j=0;
   // -1 is for indexing, if not specified, it will access the next memory position which causes problems
   for (; i < arrlen - 1; i++) {
-    for (; j < arrlen - 1; j++) {
+    // The -i is because at each iteration, the largest arr member is moved to the last location,
+    // So it is not necessary to include those members which are ordered by now.
+    for (; j < arrlen - 1 - i; j++) {
       if (arr[j] > arr[j+1]) {
         printf("Swapping %d at position %d with %d at position %d\n" , arr[j] , j , arr[j+1] , j+1);
 
