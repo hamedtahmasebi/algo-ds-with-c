@@ -12,7 +12,7 @@ typedef struct {
 } Stack;
 
 
-Node* pop(Stack* stack);
+Node pop(Stack* stack);
 Stack* new_stack(void);
 void push(Stack* stack ,int val);
 void print_stack(Stack* stack);
@@ -27,16 +27,16 @@ int main()
     printf("Pushed: %d\n" , 5);
     push(my_stack , 5);
 
-    Node* f = pop(my_stack);
-    printf("Popped: %d\n" , f->val);
+    Node* f;
 
+    Node node = pop(my_stack);
+    printf("Popped: %d\n" , node.val);
 
     f = peek(my_stack);
-
     printf("Peeked %d\n" , f->val);
 
-    f = pop(my_stack);
-    printf("Popped %d\n" , f->val);
+    node = pop(my_stack);
+    printf("Popped %d\n" , node.val);
 
 
     print_stack(my_stack);
@@ -45,13 +45,16 @@ int main()
 }
 
 
-Node* pop(Stack* stack)
+Node pop(Stack* stack)
 {
-    Node* temp = stack->head;
     if (stack->head == NULL) {
-        return NULL;
+        Node empty = { .val = -1, .prev = NULL };
+        return empty;
     }
-    stack->head = stack->head->prev;
+    Node temp = *stack->head;
+    free(stack->head);
+    stack->head = temp.prev;
+    
     stack->len--;
     return temp;
 }
