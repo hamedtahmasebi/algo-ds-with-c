@@ -21,9 +21,11 @@ enum ELeafSide  {
     Right = 1,
 };
 
-int* traverse(Node* curr);
-void add_node(BinaryTree* bt, Node* base, enum ELeafSide side, int val);
+typedef void (*TraversalCallback)(int val);
 
+int* pre_traverse(Node* curr, TraversalCallback cb);
+void add_node(BinaryTree* bt, Node* base, enum ELeafSide side, int val);
+void example_callback(int val);
 int main()
 {
     Node root = {.val = 1};
@@ -32,22 +34,21 @@ int main()
     add_node(&bt ,&root, Right, 3);
     add_node(&bt ,root.left, Left, 7);
     add_node(&bt, root.left, Right, 11);
-    
-    traverse(&root);
-    printf("Nodes Count: %d\n", bt.nodes_count);
+
+    pre_traverse(bt.root, &example_callback);
 
     /* code */
     return 0;
 }
 
 
-int* traverse(Node* curr)
+int* pre_traverse(Node* curr, TraversalCallback cb)
 {
     // Base case
     if (curr == NULL) return NULL;
-    printf("Value: %d\n", curr->val);
-    traverse(curr->left);
-    traverse(curr->right);
+    cb(curr->val);
+    pre_traverse(curr->left, cb);
+    pre_traverse(curr->right, cb);
     return NULL;
 }
 
@@ -71,4 +72,10 @@ void add_node(BinaryTree* bt, Node* base, enum ELeafSide side , int val)
         base->right = new_node;
         return;
     }
+}
+
+
+void example_callback(int val)
+{
+    printf("%d\n", val);
 }
